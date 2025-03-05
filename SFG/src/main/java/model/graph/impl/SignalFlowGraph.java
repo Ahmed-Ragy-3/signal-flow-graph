@@ -2,6 +2,7 @@ package model.graph.impl;
 
 import lombok.Data;
 import model.dtos.EdgeDto;
+import model.dtos.GraphDto;
 import model.graph.Graph;
 
 import java.util.*;
@@ -14,18 +15,18 @@ public class SignalFlowGraph implements Graph {
     private String outputNode;
     private int numberOfNodes;
 
-    public SignalFlowGraph(String inputNode, String outputNode, List<String> nodes, List<EdgeDto> edges) {
-        this.graph = new ArrayList<>(nodes.size());
+    public SignalFlowGraph(GraphDto graphDto) {
+        this.numberOfNodes = graphDto.getNodes().size();
+        this.graph = new ArrayList<>(numberOfNodes);
         this.positions = new HashMap<>();
-        this.numberOfNodes = nodes.size();
-        this.outputNode = outputNode;
-        this.inputNode = inputNode;
+        this.inputNode = graphDto.getInputNode();
+        this.outputNode = graphDto.getOutputNode();
 
-        for (int i = 0; i < nodes.size(); i++) {
-            positions.put(nodes.get(i), i);
+        for (int i = 0; i < numberOfNodes; i++) {
+            positions.put(graphDto.getNodes().get(i), i);
             graph.set(i ,new LinkedList<>());
         }
-        for (EdgeDto edge : edges) {
+        for (EdgeDto edge : graphDto.getEdges()) {
             this.addDirectedEdge(edge);
         }
     }
