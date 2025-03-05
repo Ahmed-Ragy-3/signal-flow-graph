@@ -1,6 +1,5 @@
 package model.graph.impl;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import model.dtos.EdgeDto;
 import model.graph.Graph;
@@ -50,20 +49,10 @@ public class SignalFlowGraph implements Graph {
         return graph.get(node);
     }
 
-    public List<Integer> adjacentNodes(int node) {
-        return graph.get(node).stream()
-                .map(Edge::getToNode)
-                .toList();
-    }
-
     private void addDirectedEdge(EdgeDto edge) {
-        this.addDirectedEdge(edge.getSource(), edge.getTarget(), edge.getGainSymbol(), edge.getGain());
-    }
-
-    private void addDirectedEdge(String source, String target, String gainSymbol, int gain) {
-        if (!positions.containsKey(source) || !positions.containsKey(target)) {
-            throw new IllegalArgumentException("Invalid edge: " + source + " -> " + target);
+        if (!positions.containsKey(edge.getSource()) || !positions.containsKey(edge.getTarget())) {
+            throw new IllegalArgumentException("Invalid edge: " + edge.getSource() + " -> " + edge.getTarget());
         }
-        this.graph.get(positions.get(source)).add(new Edge(positions.get(target), gainSymbol, gain));
+        graph.get(positions.get(edge.getSource())).add(new Edge(positions.get(edge.getTarget()), edge.getGainSymbol(), edge.getGain()));
     }
 }
