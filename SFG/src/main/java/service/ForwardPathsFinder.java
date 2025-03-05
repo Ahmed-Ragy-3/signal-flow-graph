@@ -11,12 +11,12 @@ public class ForwardPathsFinder {
     private final Graph graph;
     private final boolean[] visited;
     @Getter
-    private final List<Path> allPaths;
+    private final List<Path> allForwardPaths;
 
     public ForwardPathsFinder(Graph graph) {
         this.graph = graph;
         this.visited = new boolean[graph.numberOfNodes()];
-        this.allPaths = new LinkedList<>();
+        this.allForwardPaths = new LinkedList<>();
         findForwardPaths(graph.getInputNode(), graph.getOutputNode());
     }
 
@@ -27,7 +27,7 @@ public class ForwardPathsFinder {
 
     private void dfs(int node, int destination, Path path) {
         if (node == destination) {
-            allPaths.add(path.clone());
+            allForwardPaths.add(path.clone());
             return;
         }
 
