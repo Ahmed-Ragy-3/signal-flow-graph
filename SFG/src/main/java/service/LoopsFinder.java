@@ -1,13 +1,16 @@
 package service;
 
 import model.graph.Graph;
+import model.graph.impl.Edge;
+import model.graph.impl.Path;
+
 import java.util.*;
 
 public class LoopsFinder {
     private final Graph graph;
     private final boolean[] visited;
 
-    private final Set<BitSet> allLoops = new HashSet<>();
+    private final Set<Path> allLoops = new HashSet<>();
 
     public LoopsFinder(Graph graph) {
         this.graph = graph;
@@ -17,31 +20,33 @@ public class LoopsFinder {
 
     private void findLoops() {
         for (int node = 0; node < graph.numberOfNodes(); node++) {
-            BitSet loop = new BitSet(graph.numberOfNodes());
+            Path loop = new Path(node);
             findLoops(node, node, loop);
         }
     }
 
-    public Iterable<BitSet> getLoops() {
+    public Iterable<Path> getLoops() {
         return this.allLoops.stream().toList();
     }
 
-    private void findLoops(int node, int start, BitSet loop) {
+    private void findLoops(int node, int start, Path loop) {
         visited[node] = true;
-        loop.set(node);
 
-        for (int neighbor : graph.adjacentNodes(node)) {
-            if (neighbor == start) {
-                allLoops.add((BitSet) loop.clone());
+        for (Edge edge : graph.getEdges(node)) {
+            if (edge.getToNode() == start) {
+                Path completeLoop = loop.clone();
+                completeLoop.addEdge(edge);
+                allLoops.add(completeLoop);
                 continue;
             }
 
-            if (!visited[neighbor]) {
-                findLoops(neighbor, start, loop);
+            if (!visited[edge.getToNode()]) {
+                loop.addEdge(edge);
+                findLoops(edge.getToNode(), start, loop);
+                loop.removeLastEdge();
             }
         }
 
         visited[node] = false;
-        loop.clear(node);
     }
 }

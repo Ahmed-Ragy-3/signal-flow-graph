@@ -1,46 +1,47 @@
 package service;
 
 import lombok.Getter;
+import model.graph.impl.Edge;
+import model.graph.impl.Path;
 import model.graph.Graph;
-
-import java.util.ArrayList;
-import java.util.BitSet;
+import java.util.LinkedList;
 import java.util.List;
 
 public class ForwardPathsFinder {
     private final Graph graph;
     private final boolean[] visited;
     @Getter
-    private List<BitSet> allPaths;
+    private final List<Path> allPaths;
 
     public ForwardPathsFinder(Graph graph) {
         this.graph = graph;
         this.visited = new boolean[graph.numberOfNodes()];
+        this.allPaths = new LinkedList<>();
         findForwardPaths(graph.getInputNode(), graph.getOutputNode());
     }
 
     private void findForwardPaths(int inputNode, int outputNode) {
-        this.allPaths = new ArrayList<>();
-        BitSet path = new BitSet(graph.numberOfNodes());
+        Path path = new Path(inputNode);
         dfs(inputNode, outputNode, path);
     }
 
-    private void dfs(int node, int destination, BitSet path) {
+    private void dfs(int node, int destination, Path path) {
         if (node == destination) {
-            allPaths.add((BitSet) path.clone());
+            allPaths.add(path.clone());
             return;
         }
 
-        path.set(node);
         visited[node] = true;
 
-        for (Integer adjacentNode : graph.adjacentNodes(node)) {
-            if (!visited[adjacentNode]) {
-                dfs(adjacentNode, destination, path);
+        for (Edge edge : graph.getEdges(node)) {
+
+            if (!visited[edge.getToNode()]) {
+                path.addEdge(edge);
+                dfs(edge.getToNode(), destination, path);
+                path.removeLastEdge();
             }
         }
 
         visited[node] = false;
-        path.clear(node);
     }
 }

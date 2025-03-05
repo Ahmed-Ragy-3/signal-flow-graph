@@ -1,4 +1,4 @@
-package model.graph.dto;
+package model.dtos;
 
 import lombok.Data;
 
