@@ -111,8 +111,8 @@ const SimulationFlow = () => {
         data: { label: `Input` },
         type: "node",
       };
-      const node = nodes.find((node)=> node.id === node.id)
-      if(node){
+      const findNode = nodes.find((x)=> x.id === node.id)
+      if(findNode){
         alert(`Cannot have multible start`);
         return
       }
@@ -126,8 +126,8 @@ const SimulationFlow = () => {
         data: { label: `Output` },
         type: "node",
       };
-      const node = nodes.find((node)=> node.id === node.id)
-      if(node){
+      const findNode2 = nodes.find((x)=> x.id === node.id)
+      if(findNode2){
         alert(`Cannot have multible end`);
         return
       }

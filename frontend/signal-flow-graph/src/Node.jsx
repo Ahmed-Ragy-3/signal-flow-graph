@@ -6,7 +6,7 @@ function Node({data}) {
        {data.label!="Input"&& <Handle type="target" position="left" id="left" className="handle" />}
        {data.label!="Input"&& <Handle type="source" position="left" id="left" className="handle" />}
         {data.label!="Output"&&  <Handle type="source" position="right" id="right" className="handle" />}
-        {data.label!="Output"&&  <Handle type="target" position="right" id="right" className="handle" />}
+       
         {data.label!="Input" && data.label!="Output" && <Handle type="target" position="top" id="top" className="handle" />}
         {data.label!="Input" && data.label!="Output" && <Handle type="source" position="top" id="top" className="handle" />}
         {data.label!="Input" && data.label!="Output" && <Handle type="target" position="bottom" id="bottom" className="handle" />}
