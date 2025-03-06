@@ -15,6 +15,12 @@ public class Path implements Cloneable {
         this.edges = new LinkedList<>();
     }
 
+    public boolean isNonTouching(Path path) {
+        BitSet temp = (BitSet) bitSet.clone();
+        temp.and(path.getBitSet());
+        return temp.isEmpty();
+    }
+
     public Iterable<Integer> getNodes() {
         List<Integer> nodes = new ArrayList<>();
         nodes.add(startNode);

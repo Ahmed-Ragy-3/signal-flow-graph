@@ -1,37 +1,41 @@
 package service;
+import lombok.Getter;
+import model.graph.impl.Path;
+
 import java.util.*;
 
 public class NonTouchingLoopsFinder {
-    private final List<BitSet> nonTouchingLoops = new ArrayList<>();
-    private final int[] arrLoops;
-    private final int n;
+    @Getter
+    private final List<List<List<Path>>> nonTouchingLoops;
+    private final List<Path> loops;
 
-
-    public NonTouchingLoopsFinder(int n) {
-        this.arrLoops = new int[n];
-        this.n = n;
+    public NonTouchingLoopsFinder(List<Path> loops) {
+        this.nonTouchingLoops = new LinkedList<>();
+        this.loops = loops;
+        findNonTouchingLoops(0, new ArrayList<>());
     }
 
-    public void findNonTouchingLoops(int index, BitSet path) {
-        if (!path.isEmpty()) {
-            nonTouchingLoops.add(path);
+    private void findNonTouchingLoops(int index, List<Path> group) {
+        if(nonTouchingLoops.size() <= group.size()) {
+            nonTouchingLoops.add(new ArrayList<>());
         }
 
-        for (int i = index; i < n; i++) {
+        nonTouchingLoops.get(group.size()).add(new ArrayList<>(group));
+
+        for (int i = index; i < loops.size(); i++) {
             boolean nonTouching = true;
 
-            // Check if current loop touches any loop in the path
-            for (int loop : path) {
-                if ((arrLoops[i] & loop) != 0) {
+            for (Path loop : group) {
+                if (!loop.isNonTouching(loops.get(i))) {
                     nonTouching = false;
                     break;
                 }
             }
 
             if (nonTouching) {
-                path.add(arrLoops[i]);
-                findNonTouchingLoops(i + 1, path);
-                path.remove(path.size() - 1); // Backtrack
+                group.add(loops.get(i));
+                findNonTouchingLoops(i + 1, group);
+                group.remove(group.size() - 1);
             }
         }
     }

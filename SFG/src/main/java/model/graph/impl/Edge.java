@@ -8,5 +8,5 @@ import lombok.Data;
 public class Edge {
     private int toNode;
     private String gainSymbol; // ex. G1
-    private int gain;
+    private double gain;
 }

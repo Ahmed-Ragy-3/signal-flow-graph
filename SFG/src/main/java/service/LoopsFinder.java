@@ -25,7 +25,7 @@ public class LoopsFinder {
         }
     }
 
-    public Iterable<Path> getLoops() {
+    public List<Path> getLoops() {
         return this.allLoops.stream().toList();
     }
 

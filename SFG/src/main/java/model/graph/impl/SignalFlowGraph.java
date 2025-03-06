@@ -26,6 +26,7 @@ public class SignalFlowGraph implements Graph {
             positions.put(graphDto.getNodes().get(i), i);
             graph.set(i ,new LinkedList<>());
         }
+
         for (EdgeDto edge : graphDto.getEdges()) {
             this.addDirectedEdge(edge);
         }
