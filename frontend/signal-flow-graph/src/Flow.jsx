@@ -23,8 +23,10 @@ import HandleSimulate from "./HandleSimulate";
 import stopicon from './assets/stop.svg';
 import Replay from "./Replay";
 import Simulate from "./StopSimulate";
+import Sidebar from "./Sidebar";
 
 const nodeTypes = { node: Node };
+const mathExpression = { num: "G1+G2", den: "1+GH" };
 
 const SimulationFlow = () => {
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
@@ -150,6 +152,7 @@ const SimulationFlow = () => {
       onMouseMove={handleMouseMove}
       onClick={handleMouseClick}
     >
+      <Sidebar expression={mathExpression} forwardPath={"G1-G2"} loops="G1-G2" untouchedLoops="jnkjnjk"  />
       <div className="bar">
         
         <button
