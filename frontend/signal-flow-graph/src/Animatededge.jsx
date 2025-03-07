@@ -1,4 +1,4 @@
- 
+import CustomEdge from "./CustomEdge";
 import { AnimatedSvgEdge } from "@/components/animated-svg-edge";
 const defaultNodes = [
     {
@@ -17,14 +17,12 @@ const defaultEdges = [
       id: "1->2",
       source: "1",
       target: "2",
-      type: "animatedSvgEdge",
-      data: {
-        duration: 2,
-        shape: "package",
-        path: "smoothstep",
-      },
+      type: 'custom-edge',
+      label: "1",
     } 
   ];
+ 
   const edgeTypes = {
-    animatedSvgEdge: AnimatedSvgEdge,
+    'custom-edge': CustomEdge,
   };
+   

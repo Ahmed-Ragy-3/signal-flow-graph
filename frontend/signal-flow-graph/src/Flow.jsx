@@ -9,6 +9,8 @@ import ReactFlow, {
   useReactFlow,
   ReactFlowProvider,
 } from "reactflow";
+import { useCallback } from "react";
+import CustomEdge from "./CustomEdge";
 import "reactflow/dist/style.css";
 
 import Node from "./Node";
@@ -28,9 +30,7 @@ const nodeTypes = { node: Node };
 const SimulationFlow = () => {
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
-
   const [NodeID, setNodeID] = useState(1);
-
   const [queuemenu, setqueuemenu] = useState(false); // Initialize shape state inside the component
   const [menu, setMenu] = useState(false); // Initialize as boolean
   const [numberOfProducts, setNumberOfProducts] = useState(0); // Correct state name
@@ -46,6 +46,9 @@ const SimulationFlow = () => {
     setNumberOfProducts(e.target.value);
   };
 
+  const edgeTypes = {
+    "custom-edge": CustomEdge,
+  };
   const onConnect = (params) => {
     const { source, target } = params;
 
@@ -56,20 +59,15 @@ const SimulationFlow = () => {
       console.error("Source or target node not found.");
       return;
     }
-    const animatedEdge = {
+    const customEdge = {
       ...params,
-      style: {
-        stroke: "#808080",
-        strokeWidth: 2,
-        strokeDasharray: "10 5", // Dashed pattern
-        strokeDashoffset: 0,    // Initial offset
-        animation: "dash-move 5s linear infinite", // Apply animation
-      },
       markerEnd: { type: "arrowclosed", color: "#808080" },
+      type: "custom-edge",
     };
-      setEdges((eds) => addEdge(animatedEdge, eds));
-    
+      setEdges((eds) => addEdge(customEdge, eds));
   };
+  
+
   // State for floating node
   const [floatingNode, setFloatingNode] = useState(null);
   const { screenToFlowPosition } = useReactFlow();
@@ -195,37 +193,9 @@ const SimulationFlow = () => {
           </menu>
         )}
 
-        <button
-          className="icon"
-          onClick={() => {
-            setMenu(!menu);
-            setqueuemenu(false);
-          }}
-        >
-          <img src={counter} alt="counter" />
-        </button>
+       
         {/* Conditional rendering of the menu */}
-        {menu && (
-          <div className="inputmenu">
-            <input
-              id="products"
-              type="number" // Changed to number input for product count
-              value={numberOfProducts}
-              onChange={handleNumberOfProductsChange}
-              style={{
-                background: "white",
-                opacity: 0.7, // Set opacity to make input visible
-                position: "absolute",
-                width: "50%",
-                zIndex: "10px",
-                padding: "10px",
-                pointerEvents: "auto",
-                color: "black",
-                border: "black",
-              }}
-            />
-          </div>
-        )}
+       
         <button
           className="icon"
           onClick={() => {
@@ -260,6 +230,7 @@ const SimulationFlow = () => {
         onEdgesChange={onEdgesChange}
         onConnect={onConnect}
         nodeTypes={nodeTypes}
+        edgeTypes={edgeTypes}
         fitView
       >
         <Background />
