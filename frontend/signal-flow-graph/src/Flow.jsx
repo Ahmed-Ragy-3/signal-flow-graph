@@ -18,7 +18,6 @@ import queueicon from "./assets/queue.svg";
 import counter from "./assets/counter.svg";
 import redoicon from "./assets/redo.svg";
 import newsim from "./assets/play.svg";
-import machineicon from "./assets/machine.svg";
 import deleteicon from "./assets/trash (1).svg";
 import HandleSimulate from "./HandleSimulate";
 import stopicon from './assets/stop.svg';
@@ -202,7 +201,7 @@ const SimulationFlow = () => {
           onClick={() => {
             setMenu(false);
             setqueuemenu(false);
-            HandleSimulate(nodes, edges, numberOfProducts,setNodes);
+            HandleSimulate(nodes, edges, numberOfProducts);
           }}
         >
           <img src={newsim} alt="new" />
