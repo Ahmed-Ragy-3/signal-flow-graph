@@ -47,6 +47,7 @@ const SimulationFlow = () => {
   };
 
   const edgeTypes = {
+   
     "custom-edge": CustomEdge,
   };
   const onConnect = (params) => {
