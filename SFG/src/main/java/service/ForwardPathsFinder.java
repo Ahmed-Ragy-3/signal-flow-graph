@@ -21,7 +21,7 @@ public class ForwardPathsFinder {
     }
 
     private void findForwardPaths(int inputNode, int outputNode) {
-        Path path = new Path(inputNode);
+        Path path = new Path(inputNode, Path.Type.PATH);
         dfs(inputNode, outputNode, path);
     }
 

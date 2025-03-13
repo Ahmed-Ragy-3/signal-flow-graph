@@ -7,10 +7,6 @@ import model.graph.impl.Path;
 import model.graph.impl.SignalFlowGraph;
 import org.springframework.stereotype.Service;
 
-import java.awt.print.Pageable;
-import java.util.ArrayList;
-import java.util.List;
-
 @Service
 public class GraphService {
 
@@ -20,16 +16,15 @@ public class GraphService {
         LoopsFinder loopsFinder = new LoopsFinder(graph);
         NonTouchingLoopsFinder nonTouchingLoopsFinder = new NonTouchingLoopsFinder(loopsFinder.getLoops());
 
-        List<List<List<List<Path>>>> nonTouchingLoops = new ArrayList<>();
         for(Path forwardPath : forwardPathsFinder.getAllForwardPaths()) {
             NonTouchingLoopsFilter nonTouchingLoopsFilter = new NonTouchingLoopsFilter(nonTouchingLoopsFinder.getNonTouchingLoops(), forwardPath);
-            nonTouchingLoops.add(nonTouchingLoopsFilter.getFilteredNoneTouchingLoops());
+            forwardPath.assignDelta(nonTouchingLoopsFilter.getFilteredNonTouchingLoops());
         }
 
-        SolutionDto solution = new SolutionDto(forwardPathsFinder.getAllForwardPaths(),
-                loopsFinder.getLoops(), nonTouchingLoopsFinder.getNonTouchingLoops());
-
+        return new SolutionDto(forwardPathsFinder.getAllForwardPaths(),
+                loopsFinder.getLoops(),
+                nonTouchingLoopsFinder.getNonTouchingLoops(),
+                Path.calculateDelta(nonTouchingLoopsFinder.getNonTouchingLoops()),
+                "2.0", 2.0);
     }
-
-
 }

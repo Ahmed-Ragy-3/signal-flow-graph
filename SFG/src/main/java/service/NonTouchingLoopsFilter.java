@@ -1,41 +1,46 @@
 package service;
 
 import lombok.Getter;
+import model.graph.impl.GroupOfLoops;
 import model.graph.impl.Path;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class NonTouchingLoopsFilter {
-    private final List<List<List<Path>>> nonTouchingLoops;
+    private final List<List<GroupOfLoops>> nonTouchingLoops;
     @Getter
-    private final List<List<List<Path>>> filteredNoneTouchingLoops;
+    private final List<List<GroupOfLoops>> filteredNonTouchingLoops;
     private final Path forwardPath;
 
-    public NonTouchingLoopsFilter(List<List<List<Path>>> nonTouchingLoops, Path forwardPath) {
+    public NonTouchingLoopsFilter(List<List<GroupOfLoops>> nonTouchingLoops, Path forwardPath) {
         this.nonTouchingLoops = nonTouchingLoops;
-        this.filteredNoneTouchingLoops = new ArrayList<>();
+        this.filteredNonTouchingLoops = new ArrayList<>();
         this.forwardPath = forwardPath;
 
         filterNonTouchingLoops();
     }
 
     private void filterNonTouchingLoops() {
-        for (List<List<Path>> nonTouchingLoop : nonTouchingLoops) {
-            List<List<Path>> currentFilteredGroup = new ArrayList<>();
-            for (List<Path> paths : nonTouchingLoop) {
+        for (List<GroupOfLoops> nonTouchingLoop : nonTouchingLoops) {
+            List<GroupOfLoops> currentFilteredGroup = new LinkedList<>();
+            for (GroupOfLoops group : nonTouchingLoop) {
                 boolean isNonTouching = true;
-                for (Path loop : paths) {
+                for (Path loop : group.getLoops()) {
                     if (!forwardPath.isNonTouching(loop)) {
                         isNonTouching = false;
                         break;
                     }
                 }
+
                 if (isNonTouching) {
-                    currentFilteredGroup.add(new ArrayList<>(paths));
+                    currentFilteredGroup.add(new GroupOfLoops(group.getLoops()));
                 }
             }
-            filteredNoneTouchingLoops.add(currentFilteredGroup);
+            filteredNonTouchingLoops.add(currentFilteredGroup);
         }
+
+//        forwardPath.
     }
 }

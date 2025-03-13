@@ -1,0 +1,65 @@
+{
+  "forwardpaths": [
+    {
+      "nodes": "y1 y2 y3 y4",
+      "gain": "2 * 3 * b * 9",
+      "delta": "1 - ()"
+    },
+    {
+      "nodes": "y1 y2 y3 y4",
+      "gain": "2 * 3 * b * 9",
+      "delta": "1 - ()"
+    }
+  ],
+
+  "loops": [
+      {
+        "name": "L1",
+        "nodes": "y1 y2 y4 y1",
+        "gain": "2 * 3 * b * 9"
+      },
+      {
+        "name": "L2",
+        "nodes": "y1 y3 y4 y1",
+        "gain": "2 * 3 * b * 9"
+      }
+  ],
+  "nonTouchingLoops": [
+    [
+      {
+        "name": "L1",
+        "gain": "2 * 3 * b * 9"
+      },
+      {
+        "name": "L1",
+        "gain": "2 * 3 * b * 9"
+      },
+      {
+        "name": "L1",
+        "gain": "2 * 3 * b * 9"
+      }
+    ],
+
+    [
+      {
+        "name": "L1 L2",
+        "gain": "(2 * 3 * b * 9) * (4 * 5 * 1 * 2) "
+      },
+      {
+        "name": "L1, L3",
+        "gain": "(2 * b) * (4 * 5 * 1 * 2) "
+      }
+    ],
+
+    [
+      {
+        "name": "L1 L2 L3",
+        "gain": "(2 * b) * (4 * 5 * 1 * 2) * (8 * 7 * a)"
+      }
+    ]
+  ],
+
+  "delta": "1 - (2 + 4) + ( ) - .......",
+  "formula" : "(asd)asd / asdasd",
+  "solution": 123313
+}

@@ -55,6 +55,6 @@ public class SignalFlowGraph implements Graph {
         if (!positions.containsKey(edge.getSource()) || !positions.containsKey(edge.getTarget())) {
             throw new IllegalArgumentException("Invalid edge: " + edge.getSource() + " -> " + edge.getTarget());
         }
-        graph.get(positions.get(edge.getSource())).add(new Edge(positions.get(edge.getTarget()), edge.getGainSymbol(), edge.getGain()));
+        graph.get(positions.get(edge.getSource())).add(new Edge(positions.get(edge.getTarget()), edge.getGain()));
     }
 }

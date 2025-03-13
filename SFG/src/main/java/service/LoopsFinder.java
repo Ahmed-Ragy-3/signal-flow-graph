@@ -20,7 +20,7 @@ public class LoopsFinder {
 
     private void findLoops() {
         for (int node = 0; node < graph.numberOfNodes(); node++) {
-            Path loop = new Path(node);
+            Path loop = new Path(node, Path.Type.LOOP);
             findLoops(node, node, loop);
         }
     }
