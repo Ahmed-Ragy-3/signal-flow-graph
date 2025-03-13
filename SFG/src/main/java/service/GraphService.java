@@ -1,5 +1,4 @@
 package service;
-
 import model.dtos.GraphDto;
 import model.dtos.SolutionDto;
 import model.graph.Graph;
@@ -21,10 +20,17 @@ public class GraphService {
             forwardPath.assignDelta(nonTouchingLoopsFilter.getFilteredNonTouchingLoops());
         }
 
-        return new SolutionDto(forwardPathsFinder.getAllForwardPaths(),
-                loopsFinder.getLoops(),
-                nonTouchingLoopsFinder.getNonTouchingLoops(),
-                Path.calculateDelta(nonTouchingLoopsFinder.getNonTouchingLoops()),
-                "2.0", 2.0);
+        String delta = Path.calculateDelta(nonTouchingLoopsFinder.getNonTouchingLoops());
+        String formula = ExpressionEvaluator.findFormula(forwardPathsFinder.getAllForwardPaths(), delta);
+        double solution = ExpressionEvaluator.evaluateFormula(formula);
+
+        return new SolutionDto(
+                forwardPathsFinder.getAllForwardPaths()
+                , loopsFinder.getLoops()
+                , nonTouchingLoopsFinder.getNonTouchingLoops()
+                , delta
+                , formula
+                , solution
+        );
     }
 }

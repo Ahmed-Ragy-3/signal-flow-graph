@@ -84,7 +84,3 @@ class GroupDto {
         this.gain = group.getTotalGain();
     }
 }
-
-// delta final
-// formula
-// evaluate the formula
