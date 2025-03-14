@@ -85,6 +85,19 @@ class GroupDto {
                 .collect(Collectors.joining(" "));
         this.gain = group.getTotalGain();
     }
+}<<<<<<<HEAD:SFG/src/main/java/backend/SFG/model/dtos/SolutionDto.java
+
+@Data
+@AllArgsConstructor
+class FormulaDto {
+    private String numerator;
+    private String denomenator;
+
+    public FormulaDto(List<Path> forwardPaths, String delta) {
+        String[] formula = ExpressionEvaluator.findFormula(forwardPaths, delta);
+        this.numerator = formula[0];
+        this.denomenator = formula[1];
+    }
 }
 
 @Data
