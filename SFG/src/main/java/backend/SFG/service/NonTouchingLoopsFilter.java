@@ -1,12 +1,12 @@
-package service;
-
-import lombok.Getter;
-import model.graph.impl.GroupOfLoops;
-import model.graph.impl.Path;
+package backend.SFG.service;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+
+import backend.SFG.model.graph.impl.GroupOfLoops;
+import backend.SFG.model.graph.impl.Path;
+import lombok.Getter;
 
 public class NonTouchingLoopsFilter {
     private final List<List<GroupOfLoops>> nonTouchingLoops;
@@ -41,6 +41,5 @@ public class NonTouchingLoopsFilter {
             filteredNonTouchingLoops.add(currentFilteredGroup);
         }
 
-//        forwardPath.
     }
 }

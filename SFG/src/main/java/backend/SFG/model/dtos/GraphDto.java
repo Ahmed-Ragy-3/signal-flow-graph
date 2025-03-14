@@ -1,4 +1,4 @@
-package model.dtos;
+package backend.SFG.model.dtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

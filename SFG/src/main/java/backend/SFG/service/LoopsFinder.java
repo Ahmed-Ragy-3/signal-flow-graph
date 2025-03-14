@@ -1,10 +1,12 @@
-package service;
+package backend.SFG.service;
 
-import model.graph.Graph;
-import model.graph.impl.Edge;
-import model.graph.impl.Path;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
-import java.util.*;
+import backend.SFG.model.graph.Graph;
+import backend.SFG.model.graph.impl.Edge;
+import backend.SFG.model.graph.impl.Path;
 
 public class LoopsFinder {
     private final Graph graph;

@@ -1,30 +1,45 @@
-package model.graph.impl;
+package backend.SFG.model.graph.impl;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+import backend.SFG.model.dtos.EdgeDto;
+import backend.SFG.model.dtos.GraphDto;
+import backend.SFG.model.graph.Graph;
 import lombok.Data;
-import model.dtos.EdgeDto;
-import model.dtos.GraphDto;
-import model.graph.Graph;
-
-import java.util.*;
 
 @Data
 public class SignalFlowGraph implements Graph {
+    public static final String ARROW = " → ";
+
     private List<List<Edge>> graph;
     private Map<String, Integer> positions;
+    private Map<Integer, String> positions2;
+
     private String inputNode;
     private String outputNode;
     private int numberOfNodes;
+
+    private int numberOfPaths = 0;
+    private int numberOfLoops = 0;
 
     public SignalFlowGraph(GraphDto graphDto) {
         this.numberOfNodes = graphDto.getNodes().size();
         this.graph = new ArrayList<>(numberOfNodes);
         this.positions = new HashMap<>();
+        this.positions2 = new HashMap<>();
+
         this.inputNode = graphDto.getInputNode();
         this.outputNode = graphDto.getOutputNode();
 
         for (int i = 0; i < numberOfNodes; i++) {
             positions.put(graphDto.getNodes().get(i), i);
-            graph.set(i ,new LinkedList<>());
+            graph.add(new LinkedList<>());
+            positions2.put(i, graphDto.getNodes().get(i));
         }
 
         for (EdgeDto edge : graphDto.getEdges()) {
@@ -32,16 +47,23 @@ public class SignalFlowGraph implements Graph {
         }
     }
 
-    public int getInputNode() {
+    public int InputNode() {
         return positions.get(inputNode);
     }
 
-    public int getOutputNode() {
+    public int OutputNode() {
         return positions.get(outputNode);
     }
 
     public int numberOfNodes() {
         return numberOfNodes;
+    }
+
+    public String nodesOf(Path path) {
+        return positions2.get(path.getStartNode()) + ARROW + path.getEdges()
+                .stream()
+                .map(edge -> positions2.get(edge.getToNode()))
+                .collect(Collectors.joining(ARROW));
     }
 
     public List<Edge> getEdges(int node) {

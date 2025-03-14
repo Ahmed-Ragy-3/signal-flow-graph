@@ -1,4 +1,4 @@
-package model.graph.impl;
+package backend.SFG.model.graph.impl;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

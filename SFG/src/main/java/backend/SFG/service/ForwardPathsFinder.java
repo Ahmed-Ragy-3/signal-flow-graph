@@ -1,11 +1,12 @@
-package service;
+package backend.SFG.service;
 
-import lombok.Getter;
-import model.graph.impl.Edge;
-import model.graph.impl.Path;
-import model.graph.Graph;
 import java.util.LinkedList;
 import java.util.List;
+
+import backend.SFG.model.graph.Graph;
+import backend.SFG.model.graph.impl.Edge;
+import backend.SFG.model.graph.impl.Path;
+import lombok.Getter;
 
 public class ForwardPathsFinder {
     private final Graph graph;
@@ -17,7 +18,7 @@ public class ForwardPathsFinder {
         this.graph = graph;
         this.visited = new boolean[graph.numberOfNodes()];
         this.allForwardPaths = new LinkedList<>();
-        findForwardPaths(graph.getInputNode(), graph.getOutputNode());
+        findForwardPaths(graph.InputNode(), graph.OutputNode());
     }
 
     private void findForwardPaths(int inputNode, int outputNode) {

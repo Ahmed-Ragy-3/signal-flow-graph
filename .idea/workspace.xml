@@ -1,7 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="81d2c55a-d588-462b-aeb9-2a45334d2803" name="Changes" comment="" />
+    <list default="true" id="81d2c55a-d588-462b-aeb9-2a45334d2803" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SFG/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/SFG/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SFG/src/main/java/controller/GraphController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SFG/src/main/java/model/dtos/EdgeDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SFG/src/main/java/model/dtos/GraphDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SFG/src/main/java/model/dtos/SolutionDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SFG/src/main/java/model/graph/Graph.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SFG/src/main/java/model/graph/impl/Edge.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SFG/src/main/java/model/graph/impl/GroupOfLoops.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SFG/src/main/java/model/graph/impl/Path.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SFG/src/main/java/model/graph/impl/SignalFlowGraph.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SFG/src/main/java/service/ExpressionEvaluator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SFG/src/main/java/service/ForwardPathsFinder.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SFG/src/main/java/service/GraphService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SFG/src/main/java/service/LoopsFinder.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SFG/src/main/java/service/NonTouchingLoopsFilter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SFG/src/main/java/service/NonTouchingLoopsFinder.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SFG/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/SFG/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SFG/src/test/java/backend/SFG/ForwardPathsFinderTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/SFG/src/test/java/backend/SFG/ForwardPathsFinderTest.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -10,6 +34,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "Ahmed-Ragy-3"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/Ahmed-Ragy-3/signal-flow-graph.git",
+    "accountId": "2604229b-cfa4-47b3-a511-02e54e38220c"
+  }
+}]]></component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 6
 }</component>
@@ -21,10 +57,11 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
     "dart.analysis.tool.window.visible": "false",
     "git-widget-placeholder": "backend",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/noura/OneDrive/Documents/GitHub/signal-flow-graph/SFG",
+    "last_opened_file_path": "C:/COLLEGE/Term 6/control/signal-flow-graph",
     "settings.editor.selected.configurable": "preferences.sourceCode"
   }
 }]]></component>
