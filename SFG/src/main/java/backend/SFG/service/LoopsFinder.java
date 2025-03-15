@@ -22,13 +22,13 @@ public class LoopsFinder {
 
     private void findLoops() {
         for (int node = 0; node < graph.numberOfNodes(); node++) {
-            Path loop = new Path(node, Path.Type.LOOP);
+            Path loop = new Path(node, Path.Type.LOOP, allLoops.size());
             findLoops(node, node, loop);
         }
     }
 
     public List<Path> getLoops() {
-        return this.allLoops.stream().toList();
+        return this.allLoops.stream().sorted((a, b) -> a.getName().compareTo(b.getName())).toList();
     }
 
     private void findLoops(int node, int start, Path loop) {
@@ -38,7 +38,10 @@ public class LoopsFinder {
             if (edge.getToNode() == start) {
                 Path completeLoop = loop.clone();
                 completeLoop.addEdge(edge);
-                allLoops.add(completeLoop);
+                if (!allLoops.contains(completeLoop)) {
+                    allLoops.add(completeLoop);
+                    completeLoop.setName("L" + Integer.toString(allLoops.size()));
+                }
                 continue;
             }
 

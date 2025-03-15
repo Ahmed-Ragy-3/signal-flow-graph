@@ -19,8 +19,8 @@ public class SolutionDto {
     private FormulaDto formula;
     private Double solution;
 
-    public SolutionDto(Graph graph, List<Path> forwardPaths, List<Path> loops, List<List<GroupOfLoops>> groups,
-            String delta, Double solution) {
+    public SolutionDto(Graph graph, List<Path> forwardPaths,
+            List<Path> loops, List<List<GroupOfLoops>> groups, String delta, Double solution) {
 
         this.forwardPaths = forwardPaths.stream()
                 .map(path -> new PathDto(path, graph))
@@ -40,7 +40,8 @@ public class SolutionDto {
 
         this.delta = delta;
         this.formula = new FormulaDto(forwardPaths, delta);
-        this.solution = solution;
+        this.solution = ExpressionEvaluator
+                .evaluateFormula("(" + formula.getNumerator() + ") / (" + formula.getDenomenator() + ")");
     }
 }
 
@@ -84,19 +85,6 @@ class GroupDto {
                 .map(Path::getName) // Extract `name` attribute
                 .collect(Collectors.joining(" "));
         this.gain = group.getTotalGain();
-    }
-}<<<<<<<HEAD:SFG/src/main/java/backend/SFG/model/dtos/SolutionDto.java
-
-@Data
-@AllArgsConstructor
-class FormulaDto {
-    private String numerator;
-    private String denomenator;
-
-    public FormulaDto(List<Path> forwardPaths, String delta) {
-        String[] formula = ExpressionEvaluator.findFormula(forwardPaths, delta);
-        this.numerator = formula[0];
-        this.denomenator = formula[1];
     }
 }
 

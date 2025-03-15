@@ -7,19 +7,21 @@ import java.util.List;
 import java.util.Objects;
 
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
+
+@Setter
 public class Path implements Cloneable {
     // public static final String[] subscripts = {
     // "₀", "₁", "₃", "₆", "₉", "₇", "₄", "₅", "₂", "₈"
     // };
+    public static final String DELIMITER = " * ";
 
     public enum Type {
         LOOP,
         PATH
     }
-
-    public static final String DELIMITER = " * ";
 
     private String name;
     private BitSet bitSet;
@@ -28,12 +30,14 @@ public class Path implements Cloneable {
     private String delta;
     private String gain;
 
-    public Path(int startNode, Type type) {
+    public Path(int startNode, Type type, int number) {
         if (type == Type.LOOP) {
-            this.name = "L";// + number;
+            this.name = "L" + number;
+            System.out.println("loop number " + number);
 
         } else if (type == Type.PATH) {
-            this.name = "P";// + number;
+            this.name = "P" + number;
+            System.out.println("path number " + number);
         }
 
         this.startNode = startNode;
@@ -82,6 +86,10 @@ public class Path implements Cloneable {
             Path clone = (Path) super.clone();
             clone.bitSet = (BitSet) this.bitSet.clone();
             clone.edges = new LinkedList<>(this.edges);
+            clone.delta = this.delta;
+            clone.name = this.name;
+            clone.startNode = this.startNode;
+
             return clone;
         } catch (CloneNotSupportedException e) {
             throw new AssertionError();
@@ -105,7 +113,7 @@ public class Path implements Cloneable {
             if (groupOfLoops.get(0).getLoops().isEmpty())
                 continue;
 
-            stringBuilder.append(sign ? " - " : " + ").append("(");
+            stringBuilder.append(sign ? " - " : " + ").append("[");
             sign = !sign;
 
             for (GroupOfLoops group : groupOfLoops) {
@@ -115,9 +123,9 @@ public class Path implements Cloneable {
                 }
                 firstTerm = false;
 
-                stringBuilder.append("(").append(group.getTotalGain()).append(")");
+                stringBuilder.append(group.getTotalGain());
             }
-            stringBuilder.append(")");
+            stringBuilder.append("]");
         }
 
         return stringBuilder.toString();

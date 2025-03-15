@@ -24,6 +24,7 @@ public class GraphService {
         }
 
         String delta = Path.calculateDelta(nonTouchingLoopsFinder.getNonTouchingLoops());
+        Double solution = ExpressionEvaluator.evaluateFormula(delta);
         // String numerator =
         // ExpressionEvaluator.findFormula(forwardPathsFinder.getAllForwardPaths(),
         // delta);
@@ -32,7 +33,6 @@ public class GraphService {
         return new SolutionDto(
                 graph,
                 forwardPathsFinder.getAllForwardPaths(), loopsFinder.getLoops(),
-                nonTouchingLoopsFinder.getNonTouchingLoops(),
-                delta, 1.0);
+                nonTouchingLoopsFinder.getNonTouchingLoops(), delta, solution);
     }
 }

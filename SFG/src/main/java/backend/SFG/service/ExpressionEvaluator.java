@@ -16,11 +16,11 @@ public class ExpressionEvaluator {
 
         for (int i = 0; i < forwardPaths.size(); i++) {
             Path forwardPath = forwardPaths.get(i);
-            formulaBuilder.append("(")
+            formulaBuilder.append("[(")
                     .append(forwardPath.getGain())
-                    .append(" * ")
+                    .append(") * (")
                     .append(forwardPath.getDelta())
-                    .append(")");
+                    .append(")]");
 
             if (i < forwardPaths.size() - 1) {
                 formulaBuilder.append(" + ");
@@ -30,8 +30,12 @@ public class ExpressionEvaluator {
         return new String[] { formulaBuilder.toString(), delta };
     }
 
-    public static double evaluateFormula(String formula) {
-        Expression expression = new ExpressionBuilder(formula).build();
-        return expression.evaluate();
+    public static Double evaluateFormula(String formula) {
+        try {
+            Expression expression = new ExpressionBuilder(formula).build();
+            return expression.evaluate();
+        } catch (Exception e) {
+            return null;
+        }
     }
 }

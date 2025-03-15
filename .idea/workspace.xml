@@ -5,26 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="81d2c55a-d588-462b-aeb9-2a45334d2803" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SFG/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/SFG/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SFG/src/main/java/controller/GraphController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SFG/src/main/java/model/dtos/EdgeDto.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SFG/src/main/java/model/dtos/GraphDto.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SFG/src/main/java/model/dtos/SolutionDto.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SFG/src/main/java/model/graph/Graph.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SFG/src/main/java/model/graph/impl/Edge.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SFG/src/main/java/model/graph/impl/GroupOfLoops.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SFG/src/main/java/model/graph/impl/Path.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SFG/src/main/java/model/graph/impl/SignalFlowGraph.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SFG/src/main/java/service/ExpressionEvaluator.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SFG/src/main/java/service/ForwardPathsFinder.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SFG/src/main/java/service/GraphService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SFG/src/main/java/service/LoopsFinder.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SFG/src/main/java/service/NonTouchingLoopsFilter.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SFG/src/main/java/service/NonTouchingLoopsFinder.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SFG/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/SFG/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SFG/src/test/java/backend/SFG/ForwardPathsFinderTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/SFG/src/test/java/backend/SFG/ForwardPathsFinderTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SFG/src/main/java/backend/SFG/model/dtos/SolutionDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/SFG/src/main/java/backend/SFG/model/dtos/SolutionDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SFG/src/main/java/backend/SFG/service/GraphService.java" beforeDir="false" afterPath="$PROJECT_DIR$/SFG/src/main/java/backend/SFG/service/GraphService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SFG/src/main/java/service/ExpressionEvaluator.java" beforeDir="false" afterPath="$PROJECT_DIR$/SFG/src/main/java/service/ExpressionEvaluator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SFG/src/main/java/service/GraphService.java" beforeDir="false" afterPath="$PROJECT_DIR$/SFG/src/main/java/service/GraphService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,23 +18,24 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "Ahmed-Ragy-3"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Ahmed-Ragy-3&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/Ahmed-Ragy-3/signal-flow-graph.git",
-    "accountId": "2604229b-cfa4-47b3-a511-02e54e38220c"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Ahmed-Ragy-3/signal-flow-graph.git&quot;,
+    &quot;accountId&quot;: &quot;2604229b-cfa4-47b3-a511-02e54e38220c&quot;
   }
-}]]></component>
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 6
 }</component>
   <component name="ProjectId" id="2trn3fX0YwBoNvBn5yDd6s4zy6O" />
   <component name="ProjectViewState">
+    <option name="autoscrollToSource" value="true" />
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
@@ -61,7 +46,7 @@
     "dart.analysis.tool.window.visible": "false",
     "git-widget-placeholder": "backend",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/COLLEGE/Term 6/control/signal-flow-graph",
+    "last_opened_file_path": "C:/COLLEGE/Term 6/control",
     "settings.editor.selected.configurable": "preferences.sourceCode"
   }
 }]]></component>

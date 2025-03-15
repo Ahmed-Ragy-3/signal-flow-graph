@@ -59,6 +59,14 @@ public class SignalFlowGraph implements Graph {
         return numberOfNodes;
     }
 
+    public int numberOfLoops() {
+        return numberOfLoops;
+    }
+
+    public int numberOfPaths() {
+        return numberOfPaths;
+    }
+
     public String nodesOf(Path path) {
         return positions2.get(path.getStartNode()) + ARROW + path.getEdges()
                 .stream()

@@ -22,7 +22,7 @@ public class ForwardPathsFinder {
     }
 
     private void findForwardPaths(int inputNode, int outputNode) {
-        Path path = new Path(inputNode, Path.Type.PATH);
+        Path path = new Path(inputNode, Path.Type.PATH, graph.numberOfPaths());
         dfs(inputNode, outputNode, path);
     }
 

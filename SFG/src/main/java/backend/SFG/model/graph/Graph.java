@@ -19,4 +19,8 @@ public interface Graph {
     int InputNode();
 
     String nodesOf(Path path);
+
+    int numberOfPaths();
+
+    int numberOfLoops();
 }
