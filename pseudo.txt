@@ -1,0 +1,36 @@
+class RouthHurwitz:
+   coefficients = [1, 2, 3, 4]
+   routh_table = [[]]
+
+   solve():
+      build_table()
+      check_stability()
+      get_roots()
+
+   build_table():
+      Add first 2 rows
+
+      outer loop to add the rest of rows:
+
+         inner loop to get each element of row:
+            matrix shape
+                        a b
+                        c d
+            
+            If c == 0:
+               c = ε
+
+         if all elements in current row are zero:
+
+         append row
+
+   differentiate_poly(row_idx):
+      return the differentiation of the row with row_idx
+
+   check_stability():
+      get system stability (stable - unstable - marginaly stable)
+
+   get_roots():
+      get the roots on RHS, LHS, JW-axis (number of roots with their values)
+
+test cases
