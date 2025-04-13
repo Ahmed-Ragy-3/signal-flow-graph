@@ -1,64 +1,127 @@
-import sympy as sp
+from sympy import symbols, Poly, sympify, simplify
+eps = symbols('ε')
+s = symbols('s')
 
 class RouthHurwitz:
     def __init__(self, input_poly):
         self.input = input_poly
-
-    def build_table(self):
-        from sympy import symbols, Poly, sympify
-        s = symbols('s')
-
+        self.zero_row_flag = False
         poly_expr = sympify(self.input)
         poly = Poly(poly_expr, s)
-        coeffs = poly.all_coeffs()  
+        self.coeffs = poly.all_coeffs()
+        self.rows = len(self.coeffs)
+        self.cols = (len(self.coeffs) + 1) // 2
+        self.routh_table = [[0.0 for _ in range(self.cols)] for _ in range(self.rows)]
+
+    def solve(self):
+        print("\nCoefficients:", self.coeffs)
+
+        self.__build_table()
+
+        self.__print_table()
+
+        self.__check_stability()
+
+        self.__get_roots_and_location()
+
+    def __build_table(self):
+
+        for i in range(0, len(self.coeffs), 2):
+            self.routh_table[0][i // 2] = self.coeffs[i]
         
-        rows = len(coeffs)
-        cols = (len(coeffs) + 1) // 2
+        for i in range(1, len(self.coeffs), 2):
+            self.routh_table[1][i // 2] = self.coeffs[i]
 
-        routh_table = [[0.0 for _ in range(cols)] for _ in range(rows)]
+        for i in range(2, self.rows):
+            for j in range(self.cols - 1):
+                if self.routh_table[i - 1][0] == 0:
+                    if self.routh_table[i - 2][0] > 0:
+                        self.routh_table[i - 1][0] = eps
+                    else:
+                        self.routh_table[i - 1][0] = -1 * eps
 
-        for i in range(0, len(coeffs), 2):
-            routh_table[0][i // 2] = coeffs[i]
-        
-        for i in range(1, len(coeffs), 2):
-            routh_table[1][i // 2] = coeffs[i]
+                c = self.routh_table[i - 1][0]
+                a = self.routh_table[i - 2][0]
+                b = self.routh_table[i - 2][j + 1]
+                d = self.routh_table[i - 1][j + 1]
 
-        
-        for i in range(2, rows):
-            for j in range(cols - 1):
-                
-                a=routh_table[i-2][0]
-                b=routh_table[i-2][j+1]
-                c=routh_table[i-1][0]
-                d=routh_table[i-1][j+1]
-                denominator = c
-                if denominator != 0:
-                    c = ((b*c) -(a*d)) / denominator
-                # check if c = 0
-                
-                routh_table[i][j] = c
+                element = ((b * c) - (a * d)) / c
+                self.routh_table[i][j] = simplify(element)
 
-            # chek if all row = 0
-        print("Routh-Hurwitz Table:")
-        for row in routh_table:
-            print(row)
+            if all(v == 0 for v in self.routh_table[i]):
+                self.zero_row_flag = True
+                # print(f"Row {i+1} is all zeros. Differentiating previous.")
+                self.routh_table[i] = self.__differentiate_polynomial(i)
 
-        self.check_stability(routh_table)
+    def __differentiate_polynomial(self, row_idx):
+        coefficients = self.routh_table[row_idx - 1].copy()
+        degree = self.rows - row_idx
 
-    def check_stability(self, routh_table):
+        temp = coefficients[0]
+        for i in range(len(coefficients)):
+            coefficients[i] /= temp
+        # print("aux eqn: ", coefficients)
+
+        derivative = coefficients
+        for i in range(len(coefficients)):
+            if degree > 0:
+                derivative[i] = (degree * coefficients[i])
+            else:
+                derivative[i] = 0
+            degree -= 2
+
+        # print("derivative: ", derivative)
+        return derivative
+
+    def __check_stability(self):
         stable = True
-        is_pos = routh_table[0][0] > 0
+        subs_eps = lambda x: x.subs('ε', 1e-6) if x.has(symbols('ε')) else x
+        is_pos = subs_eps(self.routh_table[0][0]) > 0
 
-        for row in routh_table:
-            if row[0] < 0 and is_pos or row[0] > 0 and not is_pos:
+        for row in self.routh_table:
+            val = subs_eps(row[0])
+            if val < 0 and is_pos or val > 0 and not is_pos:
                 stable = False
-                print("Unstable")
-                # call get_roots
+                print("System is unstable")
                 break
 
-        if stable:
-            print("Stable")
+        if stable and self.zero_row_flag:
+            print("System is marginally stable")
+        elif stable:
+            print("System is stable")
 
-# Test case
-rh = RouthHurwitz("s**3 + 1*s**2 + 2*s + 24")
-rh.build_table()
+    def __get_roots_and_location(self):
+        rhs_roots = []
+        jw_roots = []
+        lhs_roots = []
+        poly = Poly(self.coeffs, symbols('s'))
+        roots_arr = poly.nroots()
+
+        # print("\nRoots of the chs eqn:-")
+        for i, root in enumerate(roots_arr):
+            real_part = root.as_real_imag()[0]
+            # print(f"Root {i + 1}: {root}")
+            if real_part > 0:
+                rhs_roots.append(root)
+            elif real_part == 0:
+                jw_roots.append(root)
+            else:
+                lhs_roots.append(root)
+
+        print(f"\nThere is {len(rhs_roots)} poles in the RHS :- ")
+        for element in rhs_roots:
+            print(element)
+        print(f"\nThere is {len(jw_roots)} poles in the JW-axis :- ")
+        for element in jw_roots:
+            print(element)
+        print(f"\nThere is {len(lhs_roots)} poles in the LHS :- ")
+        for element in lhs_roots:
+            print(element)
+
+    def __print_table(self):
+        print("\nRouth Table:-")
+        col_width = 35
+        for i, row in enumerate(self.routh_table):
+            s_label = f"s^{self.rows - i - 1}".ljust(4)
+            row_str = " | ".join(str(elem).ljust(col_width) for elem in row)
+            print(f"{s_label} | {row_str}")
