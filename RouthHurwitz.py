@@ -32,6 +32,10 @@ class RouthHurwitz:
         for i in range(1, len(self.coeffs), 2):
             self.routh_table[1][i // 2] = self.coeffs[i]
 
+        if all(v == 0 for v in self.routh_table[1]):
+            self.zero_row_flag = True
+            self.routh_table[1] = self.__differentiate_polynomial(1)
+
         for i in range(2, self.rows):
             for j in range(self.cols - 1):
                 if self.routh_table[i - 1][0] == 0:

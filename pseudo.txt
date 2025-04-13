@@ -28,7 +28,7 @@ class RouthHurwitz:
       return the differentiation of the row with row_idx
 
    check_stability():
-      get system stability (stable - unstable - marginaly stable)
+      get system stability (stable - unstable - marginally stable)
 
    get_roots():
       get the roots on RHS, LHS, JW-axis (number of roots with their values)
