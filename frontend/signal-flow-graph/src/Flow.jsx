@@ -64,6 +64,7 @@ const SimulationFlow = () => {
       ...params,
       markerEnd: { type: "arrowclosed", color: "#808080" },
       type: "custom-edge",
+      label:'1'
     };
       setEdges((eds) => addEdge(customEdge, eds));
   };
