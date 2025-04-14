@@ -18,14 +18,15 @@ import queueicon from "./assets/queue.svg";
 import counter from "./assets/counter.svg";
 import redoicon from "./assets/redo.svg";
 import newsim from "./assets/play.svg";
-import machineicon from "./assets/machine.svg";
 import deleteicon from "./assets/trash (1).svg";
 import HandleSimulate from "./HandleSimulate";
 import stopicon from './assets/stop.svg';
 import Replay from "./Replay";
 import Simulate from "./StopSimulate";
+import Sidebar from "./Sidebar";
 
 const nodeTypes = { node: Node };
+const mathExpression = { num: "G1+G2", den: "1+GH" };
 
 const SimulationFlow = () => {
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
@@ -152,6 +153,7 @@ const SimulationFlow = () => {
       onMouseMove={handleMouseMove}
       onClick={handleMouseClick}
     >
+      <Sidebar expression={mathExpression} forwardPath={"G1-G2"} loops="G1-G2" untouchedLoops="jnkjnjk"  />
       <div className="bar">
         
         <button
@@ -203,7 +205,7 @@ const SimulationFlow = () => {
           onClick={() => {
             setMenu(false);
             setqueuemenu(false);
-            HandleSimulate(nodes, edges, numberOfProducts,setNodes);
+            HandleSimulate(nodes, edges, numberOfProducts);
           }}
         >
           <img src={newsim} alt="new" />
