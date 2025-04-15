@@ -100,11 +100,13 @@ div.node {
   position: fixed;
   top: 0;
   left: -250px; /* Start off-screen */
-  width: 250px;
-  height: 100vh;
+  width: 98vw;
+  height: 98vh;
   background: white;
   color: black;
   padding: 20px;
+  padding-bottom: 40px;
+  justify-content: flex-start;
   transition: all 0.3s ease-in-out; /* Animate all properties */
   box-shadow: 3px 0 10px rgba(0, 0, 0, 0.2);
   display: flex;
@@ -141,7 +143,7 @@ div.node {
 
 /* Toggle Button Open State */
 .menu-btn.open {
-  left: 260px; /* Slide with the sidebar */
+  left: 90vw; /* Slide with the sidebar */
 }
 
 /* Section Styles */

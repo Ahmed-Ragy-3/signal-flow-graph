@@ -7,7 +7,7 @@ import ReactFlow, {
   Background,
   Controls,
   useReactFlow,
-  ReactFlowProvider,
+  ReactFlowProvider,ConnectionMode,
 } from "reactflow";
 import { useCallback } from "react";
 import CustomEdge from "./CustomEdge";
@@ -20,13 +20,21 @@ import redoicon from "./assets/redo.svg";
 import newsim from "./assets/play.svg";
 import deleteicon from "./assets/trash (1).svg";
 import HandleSimulate from "./HandleSimulate";
-import stopicon from './assets/stop.svg';
+import stopicon from "./assets/stop.svg";
 import Replay from "./Replay";
 import Simulate from "./StopSimulate";
 import Sidebar from "./Sidebar";
 
 const nodeTypes = { node: Node };
-const mathExpression = { num: "G1+G2", den: "1+GH" };
+const mathExpression = {
+  numerator:
+    "[(G1(s) * G2(s) * G3(s) * G4(s) * G5(s)) * (1 - [(H4(s) * G7(s))])]",
+  denomenator:
+    "1 - [(H4(s) * G7(s)) + (G2(s) * H1(s)) + (G4(s) * H2(s)) + (G2(s) * G3(s) * G4(s) * G5(s) * G6(s) * G7(s) * G8(s))] + [(H4(s) * G7(s)) * (G2(s) * H1(s)) + (H4(s) * G7(s)) * (G4(s) * H2(s)) + (G2(s) * H1(s)) * (G4(s) * H2(s))] - [(H4(s) * G7(s)) * (G2(s) * H1(s)) * (G4(s) * H2(s))]",
+};
+const edgeTypes = {
+  "custom-edge": CustomEdge,
+};
 
 const SimulationFlow = () => {
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
@@ -39,7 +47,7 @@ const SimulationFlow = () => {
   const deleteall = () => {
     setNodes([]);
     setEdges([]);
-    setNodeID(1); 
+    setNodeID(1);
     Simulate();
   };
 
@@ -47,10 +55,7 @@ const SimulationFlow = () => {
     setNumberOfProducts(e.target.value);
   };
 
-  const edgeTypes = {
-   
-    "custom-edge": CustomEdge,
-  };
+
   const onConnect = (params) => {
     const { source, target } = params;
 
@@ -65,10 +70,14 @@ const SimulationFlow = () => {
       ...params,
       markerEnd: { type: "arrowclosed", color: "#808080" },
       type: "custom-edge",
+      label:'1'
     };
-      setEdges((eds) => addEdge(customEdge, eds));
+    setEdges((eds) => addEdge(customEdge, eds));
   };
-  
+
+  const [isSideBarOpen,setSideBarOpen] = useState(false);
+
+  const [AnswerDto, setAnswerDto] = useState(null);
 
   // State for floating node
   const [floatingNode, setFloatingNode] = useState(null);
@@ -96,7 +105,6 @@ const SimulationFlow = () => {
     }
   };
 
-
   // creating queue node
   const handleCreateNode = (event, type) => {
     const canvasPosition = screenToFlowPosition({
@@ -106,45 +114,42 @@ const SimulationFlow = () => {
     let node = null;
     if (type === "start") {
       node = {
-        id: `Input`,
+        id: `R(s)`,
         position: canvasPosition,
-        data: { label: `Input` },
+        data: { label: `R(s)` },
         type: "node",
       };
-      const findNode = nodes.find((x)=> x.id === node.id)
-      if(findNode){
+      const findNode = nodes.find((x) => x.id === node.id);
+      if (findNode) {
         alert(`Cannot have multible start`);
-        return
-      }
-      else{
-        setFloatingNode(node)
+        return;
+      } else {
+        setFloatingNode(node);
       }
     } else if (type === "end") {
       node = {
-        id: `Output`,
+        id: `C(s)`,
         position: canvasPosition,
-        data: { label: `Output` },
+        data: { label: `C(s)` },
         type: "node",
       };
-      const findNode2 = nodes.find((x)=> x.id === node.id)
-      if(findNode2){
+      const findNode2 = nodes.find((x) => x.id === node.id);
+      if (findNode2) {
         alert(`Cannot have multible end`);
-        return
-      }
-      else{
-        setFloatingNode(node)
+        return;
+      } else {
+        setFloatingNode(node);
       }
     } else {
-       node = {
+      node = {
         id: `v${NodeID}`,
         position: canvasPosition,
-        data: { label: `v${NodeID}`},
+        data: { label: `v${NodeID}` },
         type: "node",
       };
       setFloatingNode(node);
       setNodeID(NodeID + 1);
     }
-    
   };
   return (
     <div
@@ -152,9 +157,8 @@ const SimulationFlow = () => {
       onMouseMove={handleMouseMove}
       onClick={handleMouseClick}
     >
-      <Sidebar expression={mathExpression} forwardPath={"G1-G2"} loops="G1-G2" untouchedLoops="jnkjnjk"  />
+     {AnswerDto && <Sidebar formula={AnswerDto.formula} forwardPath={AnswerDto.forwardPaths} loops={AnswerDto.loops} untouchedLoops={AnswerDto.nonTouchingLoops} delta={AnswerDto.delta} isOpen={isSideBarOpen} setIsOpen={setSideBarOpen} />}
       <div className="bar">
-        
         <button
           className="icon"
           onClick={() => {
@@ -196,15 +200,15 @@ const SimulationFlow = () => {
           </menu>
         )}
 
-       
         {/* Conditional rendering of the menu */}
-       
+
         <button
           className="icon"
           onClick={() => {
             setMenu(false);
             setqueuemenu(false);
-            HandleSimulate(nodes, edges, numberOfProducts);
+            setSideBarOpen(true);
+            HandleSimulate(nodes, edges,setAnswerDto);
           }}
         >
           <img src={newsim} alt="new" />
@@ -219,8 +223,8 @@ const SimulationFlow = () => {
         >
           <img src={redoicon} alt="redo" />
         </button>
-        <button className="icon"onClick={Simulate}>
-        <img src={stopicon} alt="stop" />
+        <button className="icon" onClick={Simulate}>
+          <img src={stopicon} alt="stop" />
         </button>
         <button className="icon" onClick={deleteall}>
           <img src={deleteicon} alt="delete" />
@@ -234,6 +238,7 @@ const SimulationFlow = () => {
         onConnect={onConnect}
         nodeTypes={nodeTypes}
         edgeTypes={edgeTypes}
+        connectionMode={ConnectionMode.Loose} // Allow overlapping edges
         fitView
       >
         <Background />
