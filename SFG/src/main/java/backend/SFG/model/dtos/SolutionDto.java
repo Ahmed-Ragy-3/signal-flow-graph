@@ -100,7 +100,3 @@ class FormulaDto {
         this.denomenator = formula[1];
     }
 }
-
-// delta final
-// formula
-// evaluate the formula

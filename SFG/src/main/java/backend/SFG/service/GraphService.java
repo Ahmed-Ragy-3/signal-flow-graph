@@ -25,10 +25,6 @@ public class GraphService {
 
         String delta = Path.calculateDelta(nonTouchingLoopsFinder.getNonTouchingLoops());
         Double solution = ExpressionEvaluator.evaluateFormula(delta);
-        // String numerator =
-        // ExpressionEvaluator.findFormula(forwardPathsFinder.getAllForwardPaths(),
-        // delta);
-        // double solution = ExpressionEvaluator.evaluateFormula(formula);
 
         return new SolutionDto(
                 graph,

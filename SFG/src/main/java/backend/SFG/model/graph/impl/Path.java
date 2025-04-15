@@ -13,9 +13,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Path implements Cloneable {
-    // public static final String[] subscripts = {
-    // "₀", "₁", "₃", "₆", "₉", "₇", "₄", "₅", "₂", "₈"
-    // };
     public static final String DELIMITER = " * ";
 
     public enum Type {
@@ -70,7 +67,6 @@ public class Path implements Cloneable {
 
     public void removeLastEdge() {
         if (!edges.isEmpty()) {
-            // Edge removed = edges.removeLast();
             Edge removed = edges.remove(edges.size() - 1);
             bitSet.clear(removed.getToNode());
             int lastIndex = gain.lastIndexOf(DELIMITER);
