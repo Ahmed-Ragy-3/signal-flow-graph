@@ -31,6 +31,17 @@ public class LoopsFinder {
         return this.allLoops.stream().sorted((a, b) -> a.getName().compareTo(b.getName())).toList();
     }
 
+    // private boolean contains(Path completeLoop) {
+    // if(allLoops.contains(completeLoop)) {
+    // for(Path loop : allLoops) {
+    // if(loop.equals(completeLoop)) {
+    // return Path.equalEdges(loop.getEdges(), completeLoop.getEdges());
+    // }
+    // }
+    // }
+    // return false;
+    // }
+
     private void findLoops(int node, int start, Path loop) {
         visited[node] = true;
 
@@ -41,6 +52,10 @@ public class LoopsFinder {
                 if (!allLoops.contains(completeLoop)) {
                     allLoops.add(completeLoop);
                     completeLoop.setName("L" + Integer.toString(allLoops.size()));
+                } else {
+                    System.out.println(completeLoop.getEdges().toString());
+                    // System.out.println(completeLoop.getEdges());
+                    System.out.println();
                 }
                 continue;
             }

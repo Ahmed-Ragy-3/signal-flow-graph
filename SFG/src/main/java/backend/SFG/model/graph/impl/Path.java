@@ -2,6 +2,7 @@ package backend.SFG.model.graph.impl;
 
 import java.util.ArrayList;
 import java.util.BitSet;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
@@ -10,7 +11,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter
-
 @Setter
 public class Path implements Cloneable {
     // public static final String[] subscripts = {
@@ -33,11 +33,9 @@ public class Path implements Cloneable {
     public Path(int startNode, Type type, int number) {
         if (type == Type.LOOP) {
             this.name = "L" + number;
-            System.out.println("loop number " + number);
 
         } else if (type == Type.PATH) {
             this.name = "P" + number;
-            System.out.println("path number " + number);
         }
 
         this.startNode = startNode;
@@ -132,18 +130,21 @@ public class Path implements Cloneable {
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hash(bitSet);
-    }
-
-    @Override
     public boolean equals(Object obj) {
         if (this == obj)
             return true;
         if (obj == null || getClass() != obj.getClass())
             return false;
+
         Path other = (Path) obj;
-        return Objects.equals(this.bitSet, other.bitSet);
+
+        return Objects.equals(this.bitSet, other.bitSet) &&
+                new HashSet<>(this.edges).equals(new HashSet<>(other.edges));
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(bitSet, new HashSet<>(edges));
     }
 
 }

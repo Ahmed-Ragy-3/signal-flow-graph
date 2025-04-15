@@ -23,7 +23,6 @@ public class GraphController {
     public ResponseEntity<?> solve(@RequestBody GraphDto graph) {
         try {
             SolutionDto solution = graphService.solve(graph);
-            System.out.println("enter 1");
             return ResponseEntity.ok(solution);
         } catch (Exception e) {
             System.out.println(e.getMessage());
