@@ -1,5 +1,4 @@
-from RouthHurwitz import RouthHurwitz
-#
+
 # rh1 = RouthHurwitz("s**3 + 1*s**2 + 2*s + 24")
 # rh1.solve() # 2, 1, 0, "unstable"
 #

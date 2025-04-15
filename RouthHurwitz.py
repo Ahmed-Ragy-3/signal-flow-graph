@@ -20,9 +20,12 @@ class RouthHurwitz:
 
         self.__print_table()
 
-        self.__check_stability()
+        state = self.__check_stability()
+        print(state)
 
-        self.__get_roots_and_location()
+        num_of_rhs_poles = self.__get_roots_and_location()
+
+        return num_of_rhs_poles, state
 
     def __build_table(self):
 
@@ -86,13 +89,16 @@ class RouthHurwitz:
             val = subs_eps(row[0])
             if val < 0 and is_pos or val > 0 and not is_pos:
                 stable = False
-                print("System is unstable")
-                break
+                # print("System is unstable")
+                return "System is unstable"
+                # break
 
         if stable and self.zero_row_flag:
-            print("System is marginally stable")
+            # print("System is marginally stable")
+            return "System is marginally stable"
         elif stable:
-            print("System is stable")
+            # print("System is stable")
+            return "System is stable"
 
     def __get_roots_and_location(self):
         rhs_roots = []
@@ -121,6 +127,8 @@ class RouthHurwitz:
         print(f"\nThere is {len(lhs_roots)} poles in the LHS :- ")
         for element in lhs_roots:
             print(element)
+
+        return len(rhs_roots)
 
     def __print_table(self):
         print("\nRouth Table:-")
