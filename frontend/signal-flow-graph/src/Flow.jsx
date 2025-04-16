@@ -9,29 +9,22 @@ import ReactFlow, {
   useReactFlow,
   ReactFlowProvider,ConnectionMode,
 } from "reactflow";
-import { useCallback } from "react";
 import CustomEdge from "./CustomEdge";
 import "reactflow/dist/style.css";
+import {
+  Snackbar,
+  Alert,
+} from "@mui/material";
 
 import Node from "./Node";
-import queueicon from "./assets/queue.svg";
-import counter from "./assets/counter.svg";
-import redoicon from "./assets/redo.svg";
+import nodeicon from "./assets/node.svg";
 import newsim from "./assets/play.svg";
 import deleteicon from "./assets/trash (1).svg";
 import HandleSimulate from "./HandleSimulate";
-import stopicon from "./assets/stop.svg";
-import Replay from "./Replay";
-import Simulate from "./StopSimulate";
+
 import Sidebar from "./Sidebar";
 
 const nodeTypes = { node: Node };
-const mathExpression = {
-  numerator:
-    "[(G1(s) * G2(s) * G3(s) * G4(s) * G5(s)) * (1 - [(H4(s) * G7(s))])]",
-  denomenator:
-    "1 - [(H4(s) * G7(s)) + (G2(s) * H1(s)) + (G4(s) * H2(s)) + (G2(s) * G3(s) * G4(s) * G5(s) * G6(s) * G7(s) * G8(s))] + [(H4(s) * G7(s)) * (G2(s) * H1(s)) + (H4(s) * G7(s)) * (G4(s) * H2(s)) + (G2(s) * H1(s)) * (G4(s) * H2(s))] - [(H4(s) * G7(s)) * (G2(s) * H1(s)) * (G4(s) * H2(s))]",
-};
 const edgeTypes = {
   "custom-edge": CustomEdge,
 };
@@ -42,22 +35,20 @@ const SimulationFlow = () => {
   const [NodeID, setNodeID] = useState(1);
   const [queuemenu, setqueuemenu] = useState(false); // Initialize shape state inside the component
   const [menu, setMenu] = useState(false); // Initialize as boolean
-  const [numberOfProducts, setNumberOfProducts] = useState(0); // Correct state name
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState("");
+  const [snackbarSeverity, setSnackbarSeverity] = useState("success");
+
 
   const deleteall = () => {
     setNodes([]);
     setEdges([]);
     setNodeID(1);
-    Simulate();
+    setAnswerDto(null);
   };
-
-  const handleNumberOfProductsChange = (e) => {
-    setNumberOfProducts(e.target.value);
-  };
-
 
   const onConnect = (params) => {
-    const { source, target } = params;
+    const { source, target, sourceHandle, targetHandle } = params;
 
     const sourceNode = nodes.find((node) => node.id === source);
     const targetNode = nodes.find((node) => node.id === target);
@@ -66,6 +57,18 @@ const SimulationFlow = () => {
       console.error("Source or target node not found.");
       return;
     }
+        // Validate the connection type - ensure source handle is actually a source and target is a target
+        const isSourceHandleValid = sourceHandle && sourceHandle.includes('source');
+        const isTargetHandleValid = targetHandle && targetHandle.includes('target');
+        
+        // Check for invalid connections
+        if (
+            (sourceHandle && sourceHandle.includes('target')) || 
+            (targetHandle && targetHandle.includes('source'))
+        ) {
+            console.error("Invalid connection: Mismatched handle types");
+            return;
+        }
     const customEdge = {
       ...params,
       markerEnd: { type: "arrowclosed", color: "#808080" },
@@ -142,9 +145,9 @@ const SimulationFlow = () => {
       }
     } else {
       node = {
-        id: `v${NodeID}`,
+        id: `V${NodeID}`,
         position: canvasPosition,
-        data: { label: `v${NodeID}` },
+        data: { label: `V${NodeID}` },
         type: "node",
       };
       setFloatingNode(node);
@@ -157,7 +160,24 @@ const SimulationFlow = () => {
       onMouseMove={handleMouseMove}
       onClick={handleMouseClick}
     >
+           <Snackbar
+          open={openSnackbar}
+          autoHideDuration={2000}
+          onClose={() => setOpenSnackbar(false)}
+          anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+        >
+          <Alert
+            onClose={() => setOpenSnackbar(false)}
+            severity={snackbarSeverity}
+            variant="filled"
+          >
+            {snackbarMessage}
+          </Alert>
+        </Snackbar>
+      
      {AnswerDto && <Sidebar formula={AnswerDto.formula} forwardPath={AnswerDto.forwardPaths} loops={AnswerDto.loops} untouchedLoops={AnswerDto.nonTouchingLoops} delta={AnswerDto.delta} isOpen={isSideBarOpen} setIsOpen={setSideBarOpen} />}
+
+
       <div className="bar">
         <button
           className="icon"
@@ -166,7 +186,7 @@ const SimulationFlow = () => {
             setMenu(false);
           }}
         >
-          <img src={queueicon} alt="queue" />
+          <img src={nodeicon} alt="node" />
         </button>
         {queuemenu && (
           <menu className="menudisplay">
@@ -177,7 +197,7 @@ const SimulationFlow = () => {
                 handleCreateNode(event, "start");
               }}
             >
-              Start
+              Input
             </button>
             <button
               className="settype"
@@ -195,7 +215,7 @@ const SimulationFlow = () => {
                 handleCreateNode(event, "end");
               }}
             >
-              End
+              Output
             </button>
           </menu>
         )}
@@ -208,23 +228,10 @@ const SimulationFlow = () => {
             setMenu(false);
             setqueuemenu(false);
             setSideBarOpen(true);
-            HandleSimulate(nodes, edges,setAnswerDto);
+            HandleSimulate(nodes, edges,setAnswerDto,setSnackbarMessage,setOpenSnackbar,setSnackbarSeverity);
           }}
         >
           <img src={newsim} alt="new" />
-        </button>
-        <button
-          className="icon"
-          onClick={() => {
-            setMenu(false);
-            setqueuemenu(false);
-            Replay(setNodes);
-          }}
-        >
-          <img src={redoicon} alt="redo" />
-        </button>
-        <button className="icon" onClick={Simulate}>
-          <img src={stopicon} alt="stop" />
         </button>
         <button className="icon" onClick={deleteall}>
           <img src={deleteicon} alt="delete" />
@@ -241,7 +248,7 @@ const SimulationFlow = () => {
         connectionMode={ConnectionMode.Loose} // Allow overlapping edges
         fitView
       >
-        <Background />
+        
         <Controls />
       </ReactFlow>
     </div>

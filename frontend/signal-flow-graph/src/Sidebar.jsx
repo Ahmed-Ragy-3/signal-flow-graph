@@ -1,8 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { MathJax, MathJaxContext } from "better-react-mathjax";
 
 const Sidebar = ({ formula, forwardPath, loops, untouchedLoops,delta,isOpen,setIsOpen }) => {
   //const [isOpen, setIsOpen] = useState(false);
+  const [numericalAnswer, setNumericalAnswer] = useState(null);
+  function isSafeMathExpression(expr) {
+    return /^[0-9+\-*/().\s]+$/.test(expr);
+  }
+  useEffect(() => {
+    let numerator = formula.numerator.replaceAll("[","(").replaceAll("]", ")");
+    let denomenator = formula.denomenator.replaceAll("[","(").replaceAll("]", ")");
+    if (isSafeMathExpression(numerator) && isSafeMathExpression(denomenator)) {
+      const result = eval(numerator) / eval(denomenator);
+      setNumericalAnswer(result);
+    } else {
+      setNumericalAnswer(null);
+    }
+  }, [formula]);
+  
+
 
   return (
     <MathJaxContext>
@@ -27,7 +43,7 @@ const Sidebar = ({ formula, forwardPath, loops, untouchedLoops,delta,isOpen,setI
       <p>{`\\( P${index+1} \\)`}</p>
       <p>{`\\( Nodes : ${path.nodes} \\)`}</p>
       <p>{`\\( Gain : ${path.gain} \\)`}</p>
-      <p>{`\\( delta : ${path.delta} \\)`}</p>
+      <p>{`\\( delta : ${path.delta.replaceAll("[","(").replaceAll("]", ")")} \\)`}</p>
       
     </MathJax>
   ))}
@@ -47,6 +63,7 @@ const Sidebar = ({ formula, forwardPath, loops, untouchedLoops,delta,isOpen,setI
         {/* Untouched Loops Section */}
         <div className="section">
   <h3>Non-Touching Loops</h3>
+  {untouchedLoops.length<=2 && <p>No non-touching loops</p>}
   {untouchedLoops.slice(2).map((loopGroup, groupIndex) => (
     <div key={groupIndex} className="loop-group">
       <h5>{`${groupIndex + 2}-Non-Touching Loops`}</h5>
@@ -63,7 +80,7 @@ const Sidebar = ({ formula, forwardPath, loops, untouchedLoops,delta,isOpen,setI
         <div className="section">
   <h3>Delta</h3>
     <MathJax>
-      <p>{`\\(${delta} \\)`}</p>
+      <p>{`\\(${delta.replaceAll("[","(").replaceAll("]", ")")} \\)`}</p>
     </MathJax>
   
 </div>
@@ -72,7 +89,9 @@ const Sidebar = ({ formula, forwardPath, loops, untouchedLoops,delta,isOpen,setI
         <div className="section">
   <h3>Formula</h3>
   <MathJax>
-    <p>{`\\( \\displaystyle \\frac{${formula.numerator}}{${formula.denomenator}} \\)`}</p>
+    <p>{`\\( \\displaystyle \\frac{${formula.numerator.replaceAll("[","(").replaceAll("]", ")")}}{${formula.denomenator.replaceAll("[","(").replaceAll("]", ")")}} \\)`}</p>
+    <br></br>
+    {numericalAnswer && <p>{`\\( \\text{Numerical Answer: } ${numericalAnswer.toFixed(3)} \\)`}</p>}
   </MathJax>
 </div>
       </div>

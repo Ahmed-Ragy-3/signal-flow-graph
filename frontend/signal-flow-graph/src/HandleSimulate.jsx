@@ -1,15 +1,27 @@
 import axios from "axios";
-async function HandleSimulate(nodes,edges,setAnswerDto){
+async function HandleSimulate(nodes,edges,setAnswerDto, setSnackbarMessage, setOpenSnackbar,setSnackbarSeverity){
     var normalNodes = nodes.map((node) => node.id)
   
     const input = nodes.find((node) => node.id === "R(s)");
     const output = nodes.find((node) => node.id === "C(s)");
+
+    const triggerSnackbarAndClose = () => {
+        setOpenSnackbar(true);
+        setTimeout(() => {
+          setOpenSnackbar(false);
+        }, 1500);
+      };
+
+    if(!input || !output){
+        setSnackbarMessage("No Input or Output Node");
+        setSnackbarSeverity("error");
+        triggerSnackbarAndClose();
+        return;
+    }
+
+ 
     
     const graphdto = {inputNode : input.id , outputNode:output.id,nodes:normalNodes,edges:edges};
-    // console.log(edges)
-    // console.log(normalNodes)
-    // console.log(input.id)
-    // console.log(output.id)
     console.log(graphdto)
 
 
@@ -19,11 +31,17 @@ async function HandleSimulate(nodes,edges,setAnswerDto){
             if(response.status === 200){
                 console.log("done");
                 console.log(response.data);
-                setAnswerDto(response.data)
+                setAnswerDto(response.data)  
+                setSnackbarMessage("Signal Flow Graph Evaluated Successfully"); 
+                setSnackbarSeverity("success");
+                triggerSnackbarAndClose();
             }
 
         }catch(error){
-            console.log(error.response.data)
+            setSnackbarMessage(error.response.data);
+            setSnackbarSeverity("error");
+            triggerSnackbarAndClose();
+            return;
         }  
     
 }

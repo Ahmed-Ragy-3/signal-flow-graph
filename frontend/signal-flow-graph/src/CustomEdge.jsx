@@ -17,6 +17,7 @@ import InboxIcon from "@mui/icons-material/Inbox";
 import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
 import NextPlanIcon from "@mui/icons-material/NextPlan";
 import FlipCameraAndroidIcon from '@mui/icons-material/FlipCameraAndroid';
+import { MathJax, MathJaxContext } from "better-react-mathjax";
 
 export default function CustomEdge({
   id,
@@ -150,18 +151,23 @@ export default function CustomEdge({
           onClick={handleEdgeClick}
           style={{
             position: "absolute",
-            transform: `translate(-50%, -50%) translate(${labelX}px, ${labelY}px)`,
+            transform: `translate(-50%, -80%) translate(${labelX}px, ${labelY}px)`,
             pointerEvents: "all",
             fontSize: "13px",
-            color: "black",
-            background: "white",
+            color: "white",
+            background: "transparent",
             padding: "2px 5px",
             zIndex: 1000,
             cursor: "pointer",
             borderRadius: "4px",
+            
           }}
         >
-          {edgeLabel}
+          <MathJaxContext>  
+          <MathJax>
+           <p>{`\\( ${edgeLabel} \\)`}</p>
+          </MathJax>
+          </MathJaxContext>
         </div>
 
         {/* Menu */}

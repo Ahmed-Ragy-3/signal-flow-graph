@@ -10,7 +10,7 @@
 .bar {
   position: absolute; /* Position it inside the container */
   width: 40px;         /* Increased width for easier access */
-  height: 300px;       /* Increased height for better button alignment */
+  height: 180px;       /* Increased height for better button alignment */
   top: 30%;            /* Position from the top */
   right: 2%;           /* Position on the right */
   background-color: rgba(28, 224, 175, 0.9); /* Slight transparency */
