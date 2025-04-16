@@ -17,10 +17,10 @@ public class SolutionDto {
     private List<List<GroupDto>> nonTouchingLoops;
     private String delta;
     private FormulaDto formula;
-    private Double solution;
+    private String solution;
 
     public SolutionDto(Graph graph, List<Path> forwardPaths,
-            List<Path> loops, List<List<GroupOfLoops>> groups, String delta, Double solution) {
+            List<Path> loops, List<List<GroupOfLoops>> groups, String delta) {
 
         this.forwardPaths = forwardPaths.stream()
                 .map(path -> new PathDto(path, graph))

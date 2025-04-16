@@ -24,11 +24,10 @@ public class GraphService {
         }
 
         String delta = Path.calculateDelta(nonTouchingLoopsFinder.getNonTouchingLoops());
-        Double solution = ExpressionEvaluator.evaluateFormula(delta.replaceAll("·", "*"));
 
         return new SolutionDto(
                 graph,
                 forwardPathsFinder.getAllForwardPaths(), loopsFinder.getLoops(),
-                nonTouchingLoopsFinder.getNonTouchingLoops(), delta, solution);
+                nonTouchingLoopsFinder.getNonTouchingLoops(), delta);
     }
 }

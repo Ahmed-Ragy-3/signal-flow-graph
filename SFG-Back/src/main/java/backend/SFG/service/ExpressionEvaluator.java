@@ -18,7 +18,7 @@ public class ExpressionEvaluator {
             Path forwardPath = forwardPaths.get(i);
             formulaBuilder.append("[(")
                     .append(forwardPath.getGain())
-                    .append(") . (")
+                    .append(") * (")
                     .append(forwardPath.getDelta())
                     .append(")]");
 
@@ -30,10 +30,14 @@ public class ExpressionEvaluator {
         return new String[] { formulaBuilder.toString(), delta };
     }
 
-    public static Double evaluateFormula(String formula) {
+    public static String evaluateFormula(String formula) {
         try {
             Expression expression = new ExpressionBuilder(formula).build();
-            return expression.evaluate();
+            double result = expression.evaluate();
+            return Double.toString(result);
+
+        } catch (ArithmeticException e) {
+            return "∞";
         } catch (Exception e) {
             return null;
         }
