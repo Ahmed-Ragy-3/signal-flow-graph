@@ -1,0 +1,83 @@
+      <Sidebar
+        formula={mathExpression}
+        forwardPath={[
+          {
+            nodes: "R(s) → V4(s) → V3(s) → V2(s) → V1(s) → C(s)",
+            gain: "G1(s) * G2(s) * G3(s) * G4(s) * G5(s)",
+            delta: "1 - [(H4(s) * G7(s))]",
+          },
+          {
+            nodes:
+              "R(s) → V4(s) → V3(s) → V2(s) → V1(s) → C(s) → V5(s) → V6(s)",
+            gain: "G1(s) * G2(s) * G3(s) * G4(s) * G5(s)",
+            delta: "1 - [(H4(s) * G7(s))]",
+          },
+        ]}
+        loops={[
+          {
+            name: "L4",
+            nodes: "V6(s) → V5(s) → V6(s)",
+            gain: "H4(s) * G7(s)",
+          },
+          {
+            name: "L2",
+            nodes: "V4(s) → V3(s) → V4(s)",
+            gain: "G2(s) * H1(s)",
+          },
+          {
+            name: "L3",
+            nodes: "V2(s) → V1(s) → V2(s)",
+            gain: "G4(s) * H2(s)",
+          },
+          {
+            name: "L1",
+            nodes:
+              "V4(s) → V3(s) → V2(s) → V1(s) → C(s) → V5(s) → V6(s) → V4(s)",
+            gain: "G2(s) * G3(s) * G4(s) * G5(s) * G6(s) * G7(s) * G8(s)",
+          },
+        ]}
+        untouchedLoops={[
+          [],
+          [
+            {
+              name: "L4",
+              gain: "(H4(s) * G7(s))",
+            },
+            {
+              name: "L2",
+              gain: "(G2(s) * H1(s))",
+            },
+            {
+              name: "L3",
+              gain: "(G4(s) * H2(s))",
+            },
+            {
+              name: "L1",
+              gain: "(G2(s) * G3(s) * G4(s) * G5(s) * G6(s) * G7(s) * G8(s))",
+            },
+          ],
+          [
+            {
+              name: "L4 L2",
+              gain: "(H4(s) * G7(s)) * (G2(s) * H1(s))",
+            },
+            {
+              name: "L4 L3",
+              gain: "(H4(s) * G7(s)) * (G4(s) * H2(s))",
+            },
+            {
+              name: "L2 L3",
+              gain: "(G2(s) * H1(s)) * (G4(s) * H2(s))",
+            },
+          ],
+          [
+            {
+              name: "L4 L2 L3",
+              gain: "(H4(s) * G7(s)) * (G2(s) * H1(s)) * (G4(s) * H2(s))",
+            },
+          ],
+        ]}
+        delta={
+          "1 - [(H4(s) * G7(s)) + (G2(s) * H1(s)) + (G4(s) * H2(s)) + (G2(s) * G3(s) * G4(s) * G5(s) * G6(s) * G7(s) * G8(s))] + [(H4(s) * G7(s)) * (G2(s) * H1(s)) + (H4(s) * G7(s)) * (G4(s) * H2(s)) + (G2(s) * H1(s)) * (G4(s) * H2(s))] - [(H4(s) * G7(s)) * (G2(s) * H1(s)) * (G4(s) * H2(s))]"
+        }
+      />
