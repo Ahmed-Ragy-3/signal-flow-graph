@@ -18,7 +18,7 @@ public class ExpressionEvaluator {
             Path forwardPath = forwardPaths.get(i);
             formulaBuilder.append("[(")
                     .append(forwardPath.getGain())
-                    .append(") · (")
+                    .append(") . (")
                     .append(forwardPath.getDelta())
                     .append(")]");
 
