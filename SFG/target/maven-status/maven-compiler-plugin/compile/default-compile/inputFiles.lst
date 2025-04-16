@@ -1,0 +1,16 @@
+C:\COLLEGE\Term 6\control\signal-flow-graph\SFG\src\main\java\backend\SFG\SfgApplication.java
+C:\COLLEGE\Term 6\control\signal-flow-graph\SFG\src\main\java\controller\GraphController.java
+C:\COLLEGE\Term 6\control\signal-flow-graph\SFG\src\main\java\model\dtos\EdgeDto.java
+C:\COLLEGE\Term 6\control\signal-flow-graph\SFG\src\main\java\model\dtos\GraphDto.java
+C:\COLLEGE\Term 6\control\signal-flow-graph\SFG\src\main\java\model\dtos\SolutionDto.java
+C:\COLLEGE\Term 6\control\signal-flow-graph\SFG\src\main\java\model\graph\Graph.java
+C:\COLLEGE\Term 6\control\signal-flow-graph\SFG\src\main\java\model\graph\impl\Edge.java
+C:\COLLEGE\Term 6\control\signal-flow-graph\SFG\src\main\java\model\graph\impl\GroupOfLoops.java
+C:\COLLEGE\Term 6\control\signal-flow-graph\SFG\src\main\java\model\graph\impl\Path.java
+C:\COLLEGE\Term 6\control\signal-flow-graph\SFG\src\main\java\model\graph\impl\SignalFlowGraph.java
+C:\COLLEGE\Term 6\control\signal-flow-graph\SFG\src\main\java\service\ExpressionEvaluator.java
+C:\COLLEGE\Term 6\control\signal-flow-graph\SFG\src\main\java\service\ForwardPathsFinder.java
+C:\COLLEGE\Term 6\control\signal-flow-graph\SFG\src\main\java\service\GraphService.java
+C:\COLLEGE\Term 6\control\signal-flow-graph\SFG\src\main\java\service\LoopsFinder.java
+C:\COLLEGE\Term 6\control\signal-flow-graph\SFG\src\main\java\service\NonTouchingLoopsFilter.java
+C:\COLLEGE\Term 6\control\signal-flow-graph\SFG\src\main\java\service\NonTouchingLoopsFinder.java

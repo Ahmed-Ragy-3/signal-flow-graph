@@ -1,0 +1,62 @@
+{
+    "inputNode": "R(s)",
+    "outputNode": "C(s)",
+    "nodes": ["R(s)", "V4(s)", "V3(s)", "V2(s)", "V1(s)", "V6(s)", "V5(s)", "C(s)"],
+    "edges": [
+      {
+        "source": "R(s)",
+        "target": "V4(s)",
+        "label": "G1(s)"
+      },
+      {
+        "source": "V4(s)",
+        "target": "V3(s)",
+        "label": "G2(s)"
+      },
+      {
+        "source": "V3(s)",
+        "target": "V2(s)",
+        "label": "G3(s)"
+      },
+      {
+        "source": "V2(s)",
+        "target": "V1(s)",
+        "label": "G4(s)"
+      },
+      {
+        "source": "V1(s)",
+        "target": "C(s)",
+        "label": "G5(s)"
+      },
+      {
+        "source": "V3(s)",
+        "target": "V4(s)",
+        "label": "H1(s)"
+      },
+      {
+        "source": "V1(s)",
+        "target": "V2(s)",
+        "label": "H2(s)"
+      },
+      {
+        "source": "V6(s)",
+        "target": "V5(s)",
+        "label": "H4(s)"
+      },
+      {
+        "source": "V6(s)",
+        "target": "V4(s)",
+        "label": "G8(s)"
+      },
+      {
+        "source": "V5(s)",
+        "target": "V6(s)",
+        "label": "G7(s)"
+      },
+      {
+        "source": "C(s)",
+        "target": "V5(s)",
+        "label": "G6(s)"
+      }
+    ]
+  }
