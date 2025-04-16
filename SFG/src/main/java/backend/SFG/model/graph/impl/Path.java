@@ -13,7 +13,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Path implements Cloneable {
-    public static final String DELIMITER = " * ";
+    public static final String DELIMITER = " · ";
 
     public enum Type {
         LOOP,
