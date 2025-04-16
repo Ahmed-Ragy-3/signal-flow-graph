@@ -175,7 +175,7 @@ const SimulationFlow = () => {
           </Alert>
         </Snackbar>
       
-     {AnswerDto && <Sidebar formula={AnswerDto.formula} forwardPath={AnswerDto.forwardPaths} loops={AnswerDto.loops} untouchedLoops={AnswerDto.nonTouchingLoops} delta={AnswerDto.delta} isOpen={isSideBarOpen} setIsOpen={setSideBarOpen} />}
+     {AnswerDto && <Sidebar formula={AnswerDto.formula} forwardPath={AnswerDto.forwardPaths} loops={AnswerDto.loops} untouchedLoops={AnswerDto.nonTouchingLoops} delta={AnswerDto.delta} isOpen={isSideBarOpen} solution={AnswerDto.solution} setIsOpen={setSideBarOpen} />}
 
 
       <div className="bar">
