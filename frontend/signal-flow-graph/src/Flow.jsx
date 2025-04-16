@@ -227,8 +227,7 @@ const SimulationFlow = () => {
           onClick={() => {
             setMenu(false);
             setqueuemenu(false);
-            setSideBarOpen(true);
-            HandleSimulate(nodes, edges,setAnswerDto,setSnackbarMessage,setOpenSnackbar,setSnackbarSeverity);
+            HandleSimulate(nodes, edges,setAnswerDto,setSnackbarMessage,setOpenSnackbar,setSnackbarSeverity,setSideBarOpen);
           }}
         >
           <img src={newsim} alt="new" />

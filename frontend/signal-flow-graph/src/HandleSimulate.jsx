@@ -1,5 +1,5 @@
 import axios from "axios";
-async function HandleSimulate(nodes,edges,setAnswerDto, setSnackbarMessage, setOpenSnackbar,setSnackbarSeverity){
+async function HandleSimulate(nodes,edges,setAnswerDto, setSnackbarMessage, setOpenSnackbar,setSnackbarSeverity,setSideBarOpen){
     var normalNodes = nodes.map((node) => node.id)
   
     const input = nodes.find((node) => node.id === "R(s)");
@@ -31,10 +31,12 @@ async function HandleSimulate(nodes,edges,setAnswerDto, setSnackbarMessage, setO
             if(response.status === 200){
                 console.log("done");
                 console.log(response.data);
-                setAnswerDto(response.data)  
+                setAnswerDto(response.data) 
+                setSideBarOpen(true); 
                 setSnackbarMessage("Signal Flow Graph Evaluated Successfully"); 
                 setSnackbarSeverity("success");
                 triggerSnackbarAndClose();
+                
             }
 
         }catch(error){
